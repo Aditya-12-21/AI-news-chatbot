@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsAI — Live Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ═══ SCANLINE OVERLAY ═════════════════════════════════════════ -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ═══ HEADER / TICKER ══════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-live">LIVE</span>
+      <span class="brand-name">NewsAI</span>
+    </div>
+    <div class="ticker-wrap">
+      <span class="ticker-label">BREAKING</span>
+      <div class="ticker-track">
+        <span class="ticker-content">
+          AI Adoption Surges 340% Globally &nbsp;·&nbsp;
+          Superconductivity Breakthrough at MIT &nbsp;·&nbsp;
+          SpaceX Starship Completes Round-Trip Mission &nbsp;·&nbsp;
+          Markets Rally on Rate Cut Signals &nbsp;·&nbsp;
+          India Powers 80M Homes via Solar Grid &nbsp;·&nbsp;
+          Ask NewsAI Anything — Powered by Claude AI &nbsp;·&nbsp;
+        </span>
+      </div>
+    </div>
+    <div class="header-clock" id="headerClock">00:00:00</div>
+  </header>
+
+  <!-- ═══ MAIN LAYOUT ═══════════════════════════════════════════════ -->
+  <main class="app-shell">
+
+    <!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Quick Queries</h3>
+        <ul class="quick-list">
+          <li><button class="quick-btn" data-q="Tell me the latest AI news">📡 Latest AI News</button></li>
+          <li><button class="quick-btn" data-q="Give me an anchor script for technology news">🎙️ Anchor Script</button></li>
+          <li><button class="quick-btn" data-q="What are current technology trends?">💡 Tech Trends</button></li>
+          <li><button class="quick-btn" data-q="Breaking news on climate change">🌍 Climate News</button></li>
+          <li><button class="quick-btn" data-q="What is machine learning?">🤖 ML Explained</button></li>
+          <li><button class="quick-btn" data-q="How does artificial intelligence work?">🧠 How AI Works</button></li>
+          <li><button class="quick-btn" data-q="Give anchor script for sports news today">⚽ Sports Broadcast</button></li>
+          <li><button class="quick-btn" data-q="Explain cryptocurrency and blockchain">₿ Crypto News</button></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Intent Legend</h3>
+        <div class="legend">
+          <div class="legend-item"><span class="badge badge-news">NEWS</span> News report</div>
+          <div class="legend-item"><span class="badge badge-anchor">ANCHOR</span> Broadcast script</div>
+          <div class="legend-item"><span class="badge badge-general">GENERAL</span> AI Q&amp;A</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">System Status</h3>
+        <div class="status-grid" id="statusGrid">
+          <div class="status-item"><span class="status-dot dot-checking"></span> Checking AI…</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── CHAT PANEL ──────────────────────────────────────────── -->
+    <section class="chat-panel">
+      <div class="chat-header">
+        <div class="chat-header-left">
+          <span class="pulse-ring"></span>
+          <span class="chat-title">NewsAI Intelligence Terminal</span>
+        </div>
+        <div class="chat-header-right">
+          <button class="ctrl-btn" id="clearBtn" title="Clear chat">⌫ Clear</button>
+        </div>
+      </div>
+
+      <!-- Message stream -->
+      <div class="chat-stream" id="chatStream">
+        <!-- Welcome message injected by JS -->
+      </div>
+
+      <!-- Input bar -->
+      <div class="chat-input-bar">
+        <div class="input-wrap">
+          <textarea
+            id="userInput"
+            class="chat-textarea"
+            placeholder="Ask anything — news, AI, scripts, world events…"
+            rows="1"
+            maxlength="1000"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" aria-label="Send">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+        <div class="input-meta">
+          <span class="char-count" id="charCount">0 / 1000</span>
+          <span class="input-hint">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <span>NewsAI Platform &copy; 2025</span>
+    <span class="footer-sep">·</span>
+    <span>Powered by Claude AI (Anthropic)</span>
+    <span class="footer-sep">·</span>
+    <span>Academic Demonstration Build</span>
+  </footer>
+
+  <!-- ═══ SCRIPTS ══════════════════════════════════════════════════ -->
+  <script>
+  (() => {
+    "use strict";
+
+    // ── DOM refs ─────────────────────────────────────────────────
+    const stream    = document.getElementById("chatStream");
+    const input     = document.getElementById("userInput");
+    const sendBtn   = document.getElementById("sendBtn");
+    const clearBtn  = document.getElementById("clearBtn");
+    const charCount = document.getElementById("charCount");
+    const clock     = document.getElementById("headerClock");
+    const statusGrid = document.getElementById("statusGrid");
+
+    // ── Live clock ────────────────────────────────────────────────
+    function updateClock() {
+      const now = new Date();
+      clock.textContent = now.toLocaleTimeString("en-US", { hour12: false });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ── Health check ──────────────────────────────────────────────
+    async function checkHealth() {
+      try {
+        const r = await fetch("/health");
+        const d = await r.json();
+        const hasKey = d.api_key === "configured";
+        statusGrid.innerHTML = `
+          <div class="status-item">
+            <span class="status-dot ${hasKey ? 'dot-ok' : 'dot-warn'}"></span>
+            ${hasKey ? "AI API Online" : "Fallback Mode"}
+          </div>
+          <div class="status-item">
+            <span class="status-dot dot-ok"></span>
+            Flask Server OK
+          </div>
+        `;
+      } catch {
+        statusGrid.innerHTML = `<div class="status-item"><span class="status-dot dot-err"></span>Server Offline</div>`;
+      }
+    }
+    checkHealth();
+
+    // ── Render helpers ────────────────────────────────────────────
+    function intentBadge(intent) {
+      const map = { news: "badge-news", anchor_script: "badge-anchor", general: "badge-general" };
+      const label = { news: "NEWS", anchor_script: "ANCHOR", general: "GENERAL" };
+      const cls   = map[intent] || "badge-general";
+      return `<span class="badge ${cls}">${label[intent] || "AI"}</span>`;
+    }
+
+    function sourcePill(source) {
+      return source === "fallback"
+        ? `<span class="source-pill source-fallback">📂 Fallback Data</span>`
+        : `<span class="source-pill source-ai">✨ AI Generated</span>`;
+    }
+
+    /** Convert plain text + markdown-ish bold to safe HTML */
+    function formatBody(text) {
+      return text
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/\[(.+?)\]/g, `<em class="stage-dir">[$1]</em>`)
+        .replace(/\n{2,}/g, "</p><p>")
+        .replace(/\n/g, "<br>");
+    }
+
+    function appendMessage({ role, text, intent, timestamp, source }) {
+      const wrapper = document.createElement("div");
+      wrapper.className = `msg msg-${role}`;
+
+      if (role === "user") {
+        wrapper.innerHTML = `
+          <div class="msg-bubble msg-bubble-user">
+            <div class="msg-text">${formatBody(text)}</div>
+            <div class="msg-meta">${timestamp}</div>
+          </div>`;
+      } else {
+        wrapper.innerHTML = `
+          <div class="msg-bubble msg-bubble-ai">
+            <div class="msg-header-row">
+              <span class="msg-sender">🎙️ NewsAI</span>
+              ${intentBadge(intent)}
+              ${sourcePill(source)}
+            </div>
+            <div class="msg-text"><p>${formatBody(text)}</p></div>
+            <div class="msg-meta">${timestamp}</div>
+          </div>`;
+      }
+
+      stream.appendChild(wrapper);
+      // Scroll to bottom with smooth animation
+      setTimeout(() => stream.scrollTo({ top: stream.scrollHeight, behavior: "smooth" }), 50);
+    }
+
+    function appendTyping() {
+      const el = document.createElement("div");
+      el.className = "msg msg-ai typing-indicator-wrap";
+      el.id = "typingIndicator";
+      el.innerHTML = `
+        <div class="msg-bubble msg-bubble-ai typing-bubble">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-label">NewsAI is generating…</span>
+        </div>`;
+      stream.appendChild(el);
+      stream.scrollTo({ top: stream.scrollHeight, behavior: "smooth" });
+    }
+
+    function removeTyping() {
+      document.getElementById("typingIndicator")?.remove();
+    }
+
+    // ── Welcome message ───────────────────────────────────────────
+    function showWelcome() {
+      const now = new Date().toLocaleString("en-US", {
+        month: "long", day: "numeric", year: "numeric",
+        hour: "numeric", minute: "2-digit", hour12: true
+      });
+      appendMessage({
+        role: "ai", intent: "general", source: "ai", timestamp: now,
+        text: `🔴 **NEWSAI PLATFORM — LIVE**\n\nWelcome to the AI News Simulation Platform.\n\nI can:\n- Generate **breaking news reports** on any topic\n- Write **professional anchor broadcast scripts**\n- Answer **any question** — tech, science, world events, AI, and more\n- Automatically detect your intent and respond appropriately\n\nTry asking: *"Latest AI news"*, *"Anchor script for space exploration"*, or *"What is quantum computing?"*\n\n**Type your query below and press Send.**`
+      });
+    }
+
+    // ── Send logic ────────────────────────────────────────────────
+    let isLoading = false;
+
+    async function sendMessage() {
+      const text = input.value.trim();
+      if (!text || isLoading) return;
+
+      isLoading = true;
+      sendBtn.disabled = true;
+      sendBtn.classList.add("loading");
+      input.value = "";
+      charCount.textContent = "0 / 1000";
+      autoResize();
+
+      const now = new Date().toLocaleString("en-US", {
+        month: "long", day: "numeric", year: "numeric",
+        hour: "numeric", minute: "2-digit", hour12: true
+      });
+
+      appendMessage({ role: "user", text, timestamp: now });
+      appendTyping();
+
+      try {
+        const resp = await fetch("/chat", {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body:    JSON.stringify({ message: text })
+        });
+
+        if (!resp.ok) throw new Error(`Server error ${resp.status}`);
+        const data = await resp.json();
+
+        removeTyping();
+        appendMessage({
+          role: "ai",
+          text:      data.reply,
+          intent:    data.intent,
+          timestamp: data.timestamp,
+          source:    data.source
+        });
+      } catch (err) {
+        removeTyping();
+        appendMessage({
+          role: "ai", intent: "general", source: "fallback",
+          timestamp: now,
+          text: `⚠️ **Connection Error**\n\nCould not reach the NewsAI server.\n\nDetails: ${err.message}\n\nMake sure Flask is running on port 5000.`
+        });
+      } finally {
+        isLoading = false;
+        sendBtn.disabled = false;
+        sendBtn.classList.remove("loading");
+        input.focus();
+      }
+    }
+
+    // ── Textarea auto-resize ──────────────────────────────────────
+    function autoResize() {
+      input.style.height = "auto";
+      input.style.height = Math.min(input.scrollHeight, 150) + "px";
+    }
+
+    input.addEventListener("input", () => {
+      autoResize();
+      charCount.textContent = `${input.value.length} / 1000`;
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    sendBtn.addEventListener("click", sendMessage);
+
+    clearBtn.addEventListener("click", () => {
+      stream.innerHTML = "";
+      showWelcome();
+    });
+
+    // ── Quick query buttons ───────────────────────────────────────
+    document.querySelectorAll(".quick-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        input.value = btn.dataset.q;
+        autoResize();
+        charCount.textContent = `${input.value.length} / 1000`;
+        sendMessage();
+      });
+    });
+
+    // ── Boot ──────────────────────────────────────────────────────
+    showWelcome();
+    input.focus();
+  })();
+  </script>
+</body>
+</html>

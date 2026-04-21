@@ -1,0 +1,68 @@
+{
+  "news": [
+    {
+      "headline": "Global AI Adoption Surges 340% as Enterprises Race to Deploy Intelligent Systems",
+      "keywords": ["AI", "artificial intelligence", "technology", "machine learning"],
+      "body": "A landmark report released today reveals that enterprise adoption of artificial intelligence solutions has surged by 340% over the past 18 months, reshaping industries from healthcare and finance to manufacturing and creative arts. Companies investing early in AI infrastructure are reporting productivity gains averaging 47%, with some sectors — particularly medical diagnostics and financial risk analysis — seeing near-transformational results. Analysts warn, however, that the talent gap in AI engineering remains the single greatest bottleneck to wider deployment.",
+      "expert_quote": "a watershed moment for human-machine collaboration"
+    },
+    {
+      "headline": "SpaceX Starship Successfully Completes First Fully Reusable Round-Trip Mission",
+      "keywords": ["space", "SpaceX", "Starship", "rocket", "NASA"],
+      "body": "In a historic milestone for commercial spaceflight, SpaceX's Starship completed its first fully reusable round-trip mission today, launching from Boca Chica, Texas, deploying a payload of communications satellites, and returning booster and spacecraft to their respective landing platforms with pinpoint precision. The achievement signals a new era of cost-effective access to orbit, with Elon Musk announcing plans to reduce per-kilogram launch costs to below $100 within three years.",
+      "expert_quote": "the most significant leap in rocketry since the Saturn V"
+    },
+    {
+      "headline": "Breakthrough: Scientists Achieve Room-Temperature Superconductivity in New Material",
+      "keywords": ["science", "physics", "superconductor", "energy", "technology"],
+      "body": "Researchers at the MIT Quantum Materials Laboratory have announced the discovery of a novel copper-hydrogen-carbon compound that exhibits superconductivity at room temperature and standard atmospheric pressure. The breakthrough — independently verified by labs in South Korea and Germany — could revolutionize energy transmission, eliminating the roughly 5% of electrical power lost to resistance in global grids, and enabling new classes of ultra-efficient motors, magnetically levitated transport, and quantum computers.",
+      "expert_quote": "potentially the most important materials discovery of the 21st century"
+    },
+    {
+      "headline": "WHO Declares Global Health Emergency Over Novel Respiratory Virus Detected in 14 Countries",
+      "keywords": ["health", "virus", "WHO", "pandemic", "medical"],
+      "body": "The World Health Organization has declared a Public Health Emergency of International Concern after a novel respiratory pathogen — provisionally named RVX-7 — was detected in 14 countries across three continents within a 72-hour window. Early genomic sequencing suggests the virus belongs to the paramyxovirus family and exhibits a reproduction number between 2.1 and 2.8. Global health authorities are coordinating rapid response protocols, while pharmaceutical companies have already begun preliminary vaccine candidate development.",
+      "expert_quote": "early containment is critical — we have a narrow window to act"
+    },
+    {
+      "headline": "Global Markets Rally as Central Banks Signal Coordinated Rate Cuts",
+      "keywords": ["economy", "markets", "stocks", "finance", "interest rates", "banking"],
+      "body": "Stock markets surged worldwide after the U.S. Federal Reserve, European Central Bank, and Bank of Japan issued a rare coordinated statement signaling imminent interest rate reductions amid easing inflation data. The S&P 500 gained 3.2%, the FTSE 100 rose 2.7%, and the Nikkei 225 climbed 4.1% on the news. Economists caution that while the rate cuts should stimulate consumer spending and corporate investment, geopolitical tensions in Eastern Europe and trade disputes with China remain significant risk factors.",
+      "expert_quote": "a synchronized global pivot that markets have been waiting months for"
+    },
+    {
+      "headline": "India Launches World's Largest Solar Energy Grid, Powering 80 Million Homes",
+      "keywords": ["India", "solar", "energy", "climate", "renewable", "environment"],
+      "body": "India inaugurated the world's largest integrated solar energy grid today, a 450-gigawatt network spanning the Rajasthan and Gujarat deserts, connected by a new high-voltage direct current backbone. The grid — eight years in the making and funded by a combination of government investment and international climate finance — will power approximately 80 million homes and eliminate an estimated 320 million tonnes of carbon dioxide emissions annually, making it the single largest climate action taken by any nation.",
+      "expert_quote": "proof that the developing world can lead the clean energy transition"
+    },
+    {
+      "headline": "FIFA Confirms 2030 World Cup to Feature 64 Teams Across Six Continents",
+      "keywords": ["sports", "FIFA", "football", "soccer", "World Cup"],
+      "body": "FIFA president Gianni Infantino confirmed today that the 2030 World Cup centenary edition will expand to 64 teams competing across host nations on six continents simultaneously, making it the most geographically distributed sporting event in history. The tournament, marking the 100th anniversary of the first World Cup held in Uruguay in 1930, will open with a symbolic match in Montevideo before competitions begin across South America, Europe, Africa, and Asia. Critics have raised logistical and environmental concerns about the expanded format.",
+      "expert_quote": "the most ambitious sporting event ever conceived"
+    }
+  ],
+  "topics": [
+    {
+      "keyword": "machine learning",
+      "title": "What is Machine Learning?",
+      "explanation": "Machine learning (ML) is a branch of artificial intelligence that enables systems to learn and improve from data without being explicitly programmed. Instead of following rigid rules, ML models identify patterns in training data and use those patterns to make predictions or decisions on new data. Key types include supervised learning (labeled data), unsupervised learning (finding hidden patterns), and reinforcement learning (learning through reward and penalty). ML powers search engines, recommendation systems, fraud detection, voice assistants, and medical diagnostics."
+    },
+    {
+      "keyword": "artificial intelligence",
+      "title": "How Does Artificial Intelligence Work?",
+      "explanation": "Artificial Intelligence (AI) works by processing large amounts of data through mathematical models called neural networks — loosely inspired by the human brain. These networks have layers of 'neurons' that transform input data (text, images, sound) into progressively abstract representations. During training, the network adjusts millions of numerical parameters to minimize prediction errors. Modern large language models like GPT and Claude process text as sequences of tokens, using a mechanism called 'attention' to understand context across long passages. The result is systems that can reason, generate, translate, and converse at near-human levels."
+    },
+    {
+      "keyword": "climate change",
+      "title": "Climate Change: Current State",
+      "explanation": "Climate change refers to long-term shifts in global temperatures and weather patterns, primarily driven since the mid-20th century by human activities — especially burning fossil fuels, deforestation, and industrial agriculture — which release greenhouse gases like CO₂ and methane. Current data shows global average temperatures are approximately 1.2°C above pre-industrial levels, with the IPCC warning that crossing 1.5°C will trigger cascading effects: more frequent extreme weather, rising sea levels, ecosystem collapse, and food insecurity affecting billions."
+    },
+    {
+      "keyword": "cryptocurrency",
+      "title": "Cryptocurrency Explained",
+      "explanation": "Cryptocurrency is a form of digital currency secured by cryptography and operating on decentralized networks called blockchains — distributed ledgers that record all transactions transparently without a central authority. Bitcoin, the first and largest cryptocurrency by market cap, was created in 2009 by the pseudonymous Satoshi Nakamoto. Ethereum expanded the concept with 'smart contracts' — self-executing code that enables decentralized applications (dApps), DeFi platforms, and NFTs. Critics point to volatility, energy consumption, and regulatory uncertainty as major challenges."
+    }
+  ]
+}
